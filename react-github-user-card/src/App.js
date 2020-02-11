@@ -38,10 +38,20 @@ class App extends Component {
   render() {
     return (
       <div className="AppHome">
+        <div className="ProfileCard">
+        <h1>Amin's GitHub UserCard</h1>
+        {/* {console.log(this.state)} */}
+        <UserCard
+          name={this.state.name}
+          email={this.state.email}
+          login={this.state.login}
+          avatar={this.state.avatar}
+        />
+        </div>
         {this.state.followers.map(follower => {
           return (
             <div className="Followers">
-              <img src={follower.avatar_url} alt="GitHub Avatar"/>
+              <img src={follower.avatar_url} alt="GitHub Avatar" />
               <div className="Creds">
                 <p>Name: {follower.name}</p>
                 <p>Username: {follower.login}</p>
@@ -50,14 +60,6 @@ class App extends Component {
             </div>
           );
         })}
-
-        {/* {console.log(this.state)} */}
-        <UserCard
-        name={this.state.name}
-        email={this.state.email}
-        login={this.state.login}
-        avatar={this.state.avatar}
-        />
       </div>
     );
   }
