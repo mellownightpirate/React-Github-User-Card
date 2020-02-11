@@ -1,26 +1,66 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Axios from "axios";
+import UserCard from "./Components/UserCard";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      name: ``,
+      email: ``,
+      login: ``,
+      avatar: ``,
+      followers: []
+    };
+  }
+
+  componentDidMount() {
+    Axios.get(`https://api.github.com/users/mellownightpirate`).then(res => {
+      // console.log(res.data.name);
+      this.setState({
+        name: res.data.name,
+        email: res.data.email,
+        login: res.data.login,
+        avatar: res.data.avatar_url
+      });
+    });
+    Axios.get(`https://api.github.com/users/mellownightpirate/followers`).then(
+      res => {
+        // console.log(res);
+        this.setState({
+          followers: res.data
+        });
+      }
+    );
+  }
+
+  render() {
+    return (
+      <div className="AppHome">
+        {this.state.followers.map(follower => {
+          return (
+            <div className="Followers">
+              <img src={follower.avatar_url} alt="GitHub Avatar"/>
+              <div className="Creds">
+                <p>Name: {follower.name}</p>
+                <p>Username: {follower.login}</p>
+                <p>{follower.html_url}</p>
+              </div>
+            </div>
+          );
+        })}
+
+        {/* {console.log(this.state)} */}
+        <UserCard
+        name={this.state.name}
+        email={this.state.email}
+        login={this.state.login}
+        avatar={this.state.avatar}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
