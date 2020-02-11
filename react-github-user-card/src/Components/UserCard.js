@@ -1,15 +1,16 @@
 import React from 'react';
 
-const UserCard = (props) =>{
+class UserCard extends React.Component{
+ render(){
 
-    return(
+     return (
         <div>
-            <p>{props.name}</p>
-            <p>{props.login}</p>
-            <p>{props.email}</p>
-            <img src = {props.avatar} alt="GitHub Avatar"/>
-        </div>
-    );
+         <p>{this.props.name}</p>
+            <p>{this.props.login}</p>
+            <p>{this.props.email}</p>
+            <img src = {this.props.avatar} alt="GitHub Avatar"/>
+               </div>
+     )
 }
-
+}
 export default UserCard; 

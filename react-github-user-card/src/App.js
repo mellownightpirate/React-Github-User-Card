@@ -4,8 +4,8 @@ import UserCard from "./Components/UserCard";
 import "./App.css";
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: ``,
       email: ``,
@@ -46,11 +46,12 @@ class App extends Component {
           email={this.state.email}
           login={this.state.login}
           avatar={this.state.avatar}
+       
         />
         </div>
         {this.state.followers.map(follower => {
           return (
-            <div className="Followers">
+            <div className="Followers" key={follower.login}>
               <img src={follower.avatar_url} alt="GitHub Avatar" />
               <div className="Creds">
                 <p>Name: {follower.name}</p>
